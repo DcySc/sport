@@ -4,7 +4,7 @@ const Post = require('../domain/Post')
 
 class PostResource {
   constructor() {
-    this.path = [, {
+    this.path = [{
       url: '/api/post',
       method: 'post',
       option: 'addPost'
@@ -20,8 +20,33 @@ class PostResource {
       url: '/api/update_post',
       method: 'post',
       option: 'updatePost'
+    }, {
+      url: '/api/posts',
+      method: 'get',
+      option: 'getPosts'
     }];
   }
+
+
+  /**
+   * 获取所有posts
+   * @param {*} ctx 
+   */
+  async getAllPosts(ctx){
+    let query = ctx.request.query;
+    try {
+      let baseDao = ctx.baseDao;
+      let dbo = await ctx.mongodbUtil.dbo();
+      let res = await baseDao.find(dbo, 'post', {});
+      ctx.body = res;
+    } catch (err) {
+      ctx.status = 405;
+      ctx.body = {
+        message: 'some err'
+      }
+    }
+  }
+
 
   // 新增帖子 
   async addPost(ctx) {
@@ -50,7 +75,9 @@ class PostResource {
       let baseDao = ctx.baseDao;
       let dbo = await ctx.mongodbUtil.dbo();
       let res = await baseDao.find(dbo, 'post', {
-        jionList: { $all: [query.userId]}
+        jionList: {
+          $all: [query.userId]
+        }
       });
       ctx.body = res;
     } catch (err) {
@@ -82,7 +109,7 @@ class PostResource {
   // 更新帖子
   async updatePost(ctx) {
     const post = new Post(ctx.request.body);
-    try{
+    try {
       let dbo = await ctx.mongodbUtil.dbo();
       let baseDao = ctx.baseDao;
       ctx.body = await baseDao.update(dbo, 'post', {
@@ -91,7 +118,7 @@ class PostResource {
         $set: post
       });
 
-    }catch(err){
+    } catch (err) {
       ctx.body = {
         code: 405,
         message: 'some err'
