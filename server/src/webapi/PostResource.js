@@ -36,7 +36,7 @@ class PostResource {
     } catch (err) {
       ctx.status = 401;
       ctx.body = {
-        message: 'some err'
+        message: 'some error'
       }
       throw err;
     }
