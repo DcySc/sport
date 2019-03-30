@@ -1,0 +1,47 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title color="light">我的</ion-title>
+    <div class="icon"> 
+      <ion-icon name="{{icon}}" (click)="clickIcon($event)"></ion-icon>
+    </div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content color="light">
+ <div class="container">
+    <div class="item">
+        <div class="title">头像</div>
+        <ion-img class="img" [src]="person.img"></ion-img>
+      </div>
+    <div class="item">
+      <div class="title">姓名</div>
+      <div class="item-content" *ngIf="!edit">{{ person.name }}</div>
+      <ion-input class="input" placeholder="姓名" [(ngModel)]="person.name" *ngIf="edit"></ion-input>
+    </div>
+    <div class="item">
+      <div class="title">性别</div>
+      <div class="item-content" *ngIf="!edit">{{ person.sex }}</div>
+      <ion-input class="input" placeholder="性别" [(ngModel)]="person.sex" *ngIf="edit"></ion-input>
+    </div>
+    <div class="item">
+      <div class="title">学号</div>
+      <div class="item-content" *ngIf="!edit">{{ person.id }}</div>
+      <ion-input class="input" placeholder="学号" [(ngModel)]="person.id" *ngIf="edit"></ion-input>
+    </div>
+    <div class="item">
+      <div class="title">学校</div>
+      <div class="item-content" *ngIf="!edit">{{ person.school }}</div>
+      <ion-input class="input" placeholder="学校" [(ngModel)]="person.school" *ngIf="edit"></ion-input>
+    </div>
+    <div class="item">
+      <div class="title">专业</div>
+      <div class="item-content" *ngIf="!edit">{{ person.major }}</div>
+      <ion-input class="input" placeholder="专业" [(ngModel)]="person.major" *ngIf="edit"></ion-input>
+    </div>
+    <div class="item">
+      <div class="title">爱好</div>
+      <div class="item-content" *ngIf="!edit">{{ person.hobby }}</div>
+      <ion-input class="input" placeholder="爱好" [(ngModel)]="person.hobby" *ngIf="edit"></ion-input>
+    </div>
+ </div>
+</ion-content>

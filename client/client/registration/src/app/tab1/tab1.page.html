@@ -1,0 +1,49 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>
+      首页
+    </ion-title>
+    
+  </ion-toolbar>
+  <div class="filter">
+    <ion-select [interfaceOptions]="placeSelect" interface="alert" placeholder="请选择地区" cancelText="取消" okText="确定" [(ngModel)]="place">
+      <ion-select-option value="brown">Brown</ion-select-option>
+      <ion-select-option value="blonde">Blonde</ion-select-option>
+      <ion-select-option value="black">Black</ion-select-option>
+      <ion-select-option value="red">Red</ion-select-option>
+    </ion-select>
+    <ion-select *ngIf="!place" placeholder="请选择学校" [interfaceOptions]="noneSelect" disabled>
+      <ion-select-option value="red">Red</ion-select-option>
+    </ion-select>
+    
+    <ion-select *ngIf="place" [interfaceOptions]="schoolSelect" interface="alert" placeholder="请选择学校" cancelText="取消" okText="确定" [(ngModel)]="school">
+      <ion-select-option value="brown">Brown</ion-select-option>
+      <ion-select-option value="blonde">Blonde</ion-select-option>
+    </ion-select>
+  </div>
+</ion-header>
+
+<ion-content color="light">
+  <ng-container *ngFor="let i of messageList">
+      <div class="item"> 
+        <div class="img">
+          <ion-img src="i.img"></ion-img>
+        </div>
+        <div class="body">
+          <div class="content">
+            {{ i.content }}
+          </div>
+          <div class="sign">
+            <div class="sign-item">1</div>
+            <div class="sign-item">2</div>
+            <div class="sign-item">3</div>
+          </div>
+        </div>
+        <div class="select">
+            <ion-icon *ngIf="i.isShow" name="checkbox-outline" (click)="clickIcon($event, i)" color="primary"></ion-icon>
+            <ion-icon *ngIf="!i.isShow" name="checkbox" (click)="clickIcon($event, i)" color="primary"></ion-icon>
+        </div>
+      </div>
+  </ng-container>
+  
+</ion-content>

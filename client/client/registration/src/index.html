@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <title>Ionic App</title>
+
+  <base href="/" />
+
+  <meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="format-detection" content="telephone=no" />
+  <meta name="msapplication-tap-highlight" content="no" />
+
+  <link rel="icon" type="image/png" href="assets/icon/favicon.png" />
+
+  <!-- add to homescreen for ios -->
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+</head>
+
+<body>
+  <app-root></app-root>
+
+  <script>
+    /**
+     * 以下这段代码是用于根据移动端设备的屏幕分辨率计算出合适的根元素的大小
+     * 当设备宽度为375(iPhone6)时，根元素font-size=16px; 依次增大；
+     * 限制当为设备宽度大于768(iPad)之后，font-size不再继续增大
+     * scale 为meta viewport中的缩放大小
+     */
+    (function (doc, win) {
+        var docEl = win.document.documentElement;
+        var resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize';
+         /**
+         * ================================================
+         *   设置根元素font-size
+         * 当设备宽度为375(iPhone6)时，根元素font-size=10px;
+         × ================================================
+         */
+        var refreshRem = function () {
+            var clientWidth = win.innerWidth
+                || doc.documentElement.clientWidth
+                || doc.body.clientWidth;
+
+            if (!clientWidth) return;
+            var fz;
+            var width = clientWidth;
+            fz = 10 * width / 375;
+            docEl.style.fontSize = fz + 'px';
+        };
+
+        if (!doc.addEventListener) return;
+        win.addEventListener(resizeEvt, refreshRem, false);
+        doc.addEventListener('DOMContentLoaded', refreshRem, false);
+        refreshRem();
+
+    })(document, window);
+</script>
+</body>
+
+</html>
