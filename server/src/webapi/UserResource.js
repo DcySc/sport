@@ -9,7 +9,7 @@ class UserResource {
       method: 'get',
       option: 'getUser'
     }, {
-      url: 'api/user',
+      url: '/api/user',
       method: 'delete',
       option: 'deleteUserById'
     }, {
@@ -20,6 +20,10 @@ class UserResource {
       url: '/api/register',
       method: 'post',
       option: 'addUser'
+    },{
+      url: '/api/update_user',
+      method: 'post',
+      option: 'updateUser'
     }];
   }
 
@@ -51,9 +55,24 @@ class UserResource {
       let dbo = await ctx.mongodbUtil.dbo();
       let baseDao = ctx.baseDao;
       let user = new User(ctx.request.body);
+      if(user.office){
+        let office = await baseDao.find(dbo, 'office', {
+          id: user.office
+        });
+        if(office.length<=0){
+          ctx.body = {
+            code:410,
+            err: 'office not exsit'
+          }
+          return;
+        }
+      }
+
+      
       let list = await baseDao.find(dbo, 'user', {
         id: user.id
       });
+
       if(list.length>0){
         ctx.status = 405;
         ctx.body = {
@@ -91,6 +110,28 @@ class UserResource {
   }
 
 
+  /**
+   * 更新用户
+   */
+  async updateUser(){
+    const user = ctx.request.body;
+    try{
+      let dbo = await ctx.mongodbUtil.dbo();
+      let baseDao = ctx.baseDao;
+      ctx.body = await baseDao.update(dbo, 'user', {
+        id: user.id
+      }, {
+        $set: user
+      });
+
+    }catch(err){
+      ctx.body = {
+        code: 405,
+        message: 'some err'
+      }
+    }
+  }
+
   async login(ctx) {
     const user = ctx.request.body
     console.log(user)
@@ -101,8 +142,6 @@ class UserResource {
           id: user.id,
           role:user.role
         });
-        console.log(res)
-
         if (res[0].password === user.password) {
           if (true) {
             const token = jwt.sign(user, environment.secret, {
@@ -118,8 +157,6 @@ class UserResource {
         }
       }
     } catch (err) {
-
-      console.log(err)
       ctx.body = {
         message: '参数错误',
         code: -1
