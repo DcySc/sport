@@ -23,7 +23,7 @@ class PostResource {
     }, {
       url: '/api/posts',
       method: 'get',
-      option: 'getPosts'
+      option: 'getAllPosts'
     }];
   }
 

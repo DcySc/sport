@@ -26,31 +26,9 @@
 </ion-header>
 
 <ion-content color="light">
-  <!-- <ng-container *ngFor="let i of messageList">
-      <div class="item"> 
-        <div class="img">
-          <ion-img src="i.img"></ion-img>
-        </div>
-        <div class="body">
-          <div class="content">
-            {{ i.content }}
-          </div>
-          <div class="sign">
-            <div class="sign-item">1</div>
-            <div class="sign-item">2</div>
-            <div class="sign-item">3</div>
-          </div>
-        </div>
-        <div class="select">
-            <ion-icon *ngIf="i.isShow" name="checkbox-outline" (click)="clickIcon($event, i)" color="primary"></ion-icon>
-            <ion-icon *ngIf="!i.isShow" name="checkbox" (click)="clickIcon($event, i)" color="primary"></ion-icon>
-        </div>
-      </div>
-  </ng-container> -->
-
   <ion-card>
     <ng-container *ngFor="let i of messageList">
-      <ion-item class="item">
+      <div class="item">
         <div class="img">
           <ion-img src="i.img"></ion-img>
         </div>
@@ -68,7 +46,7 @@
           <ion-icon *ngIf="i.isShow" name="checkbox-outline" (click)="clickIcon($event, i)" color="primary"></ion-icon>
           <ion-icon *ngIf="!i.isShow" name="checkbox" (click)="clickIcon($event, i)" color="primary"></ion-icon>
         </div>
-      </ion-item>
+      </div>
     </ng-container>
   </ion-card>
 

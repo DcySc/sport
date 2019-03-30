@@ -43,8 +43,4 @@ export class AuthService {
   clearToken() {
     localStorage.removeItem('token');
   }
-
-  register(username: string, email: string, password: string): Observable<any> {
-    return this.http.get(`${BASEURL}/api/register?username=${username}&email=${email}&password=${password}`);
-  }
 }

@@ -1,9 +1,62 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar color="primary">
     <ion-title>
-      Tab Two
+      列表
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content></ion-content>
+<ion-content>
+
+  <div class="tab-header">
+    <div [ngClass]="{'select': selectTab === 1}" (click)="changeTab(1)">
+      <ion-icon name="chatbubbles"></ion-icon>
+      <ion-label>我发布的</ion-label>
+    </div>
+    <div [ngClass]="{'select': selectTab === 2}" (click)="changeTab(2)">
+      <ion-icon name="chatbubbles"></ion-icon>
+      <ion-label>我参与的</ion-label>
+    </div>
+  </div>
+
+  <ion-card *ngIf="selectTab === 1">
+      <ng-container *ngFor="let i of messageList">
+        <div class="item">
+          <div class="img">
+            <ion-img src="i.img"></ion-img>
+          </div>
+          <div class="body">
+            <div class="content">
+              {{ i.content }}
+            </div>
+            <div class="sign">
+              <div class="sign-item">{{ i.school }}</div>
+              <div class="sign-item">{{ i.sex }}</div>
+              <div class="sign-item">{{ i.hobby }}</div>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+  </ion-card>
+
+  <ion-card *ngIf="selectTab === 2">
+      <ng-container *ngFor="let i of messageList">
+        <div class="item">
+          <div class="img">
+            <ion-img src="i.img"></ion-img>
+          </div>
+          <div class="body">
+            <div class="content">
+              {{ i.content }}
+            </div>
+            <div class="sign">
+              <div class="sign-item">{{ i.school }}</div>
+              <div class="sign-item">{{ i.sex }}</div>
+              <div class="sign-item">{{ i.hobby }}</div>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+  </ion-card>
+
+</ion-content>

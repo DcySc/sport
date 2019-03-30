@@ -1,1 +1,132 @@
+$border-color: rgb(199, 194, 194);
+$color: rgba(85, 85, 85, 0.5);
 
+ion-content {
+    .tab-header {
+        width: 100%;
+        height: 5rem;
+        display: flex;
+        justify-content: center;
+        border-bottom: 1px solid $color;
+
+
+        div {
+            width: 50%;
+            height: 100%;
+            text-align: center;
+            line-height: 5rem;
+            letter-spacing: 0.1em;
+            color: $color;
+            font: {
+                size: 16px;
+                weight: 200;
+            }
+
+            &:first-child {
+                position: relative;
+                
+                &::before {
+                    content: '';
+                    position: absolute;
+                    top: 1rem;
+                    right: 0;
+                    width: 1px;
+                    height: 3rem;
+                    background: $color;
+                }
+            }
+        }
+
+        .select {
+            color: rgb(89, 156, 255)
+        }
+
+    }
+
+    .item {
+        display: flex;
+        background: white;
+        width: 100%;
+        height: 10rem;
+        border-bottom: 1px solid $border-color;
+
+        .img {
+            display: flex;
+            align-items: center;
+            width: 8rem;
+            height: 100%;
+            line-height: 8rem;
+            padding: 1rem;
+
+            ion-img {
+                width: 6rem;
+                height: 6rem;
+            }
+        }
+
+        .body {
+            flex: 1;
+            height: 100%;
+
+            .content {
+                width: 100%;
+                height: 60%;
+                padding: 5px;
+
+                font: {
+                    size: 12px;
+
+                }
+
+                letter-spacing: 0.1em;
+            }
+
+            .sign {
+                display: flex;
+                justify-content: space-around;
+                align-items: center;
+                width: 100%;
+                height: 40%;
+
+                .sign-item {
+                    width: 5rem;
+                    height: 3rem;
+                    color: white;
+                    line-height: 3rem;
+                    text-align: center;
+                    border-radius: 50%;
+                    font-size: 12px;
+
+                    &:nth-child(1) {
+                        background-color: rgb(255, 212, 0);
+                    }
+
+                    &:nth-child(2) {
+                        background-color: rgb(247, 110, 35);
+                    }
+
+                    &:nth-child(3) {
+                        background-color: rgb(247, 35, 185);
+                    }
+                }
+            }
+        }
+
+        .select {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 4rem;
+            height: 100%;
+
+            ion-icon {
+                width: 3rem;
+                height: 3rem;
+            }
+        }
+
+        &:first-child {
+            border-top: 1px solid $border-color;
+        }
+    }
+}
