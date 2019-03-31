@@ -5,5 +5,36 @@
 </ion-header>
 
 <ion-content>
+  <div class="container">
+    <div class="item">
+      <div class="title">发布者</div>
+      <div class="item-content">{{ post.name }}</div>
+    </div>
+    <div class="item">
+      <div class="title">约定时间</div>
+      <div class="item-content">{{ post.time }}</div>
+    </div>
+    <div class="item">
+      <div class="title">约定地点</div>
+      <div class="item-content">{{ post.address }}</div>
+    </div>
+    <div class="item">
+      <div class="title">具体信息</div>
+      <div class="item-content">{{ post.message }}</div>
+    </div>
 
+    <ion-card>
+      <ion-card-header color="primary">
+          <ion-card-subtitle>目前参与者</ion-card-subtitle>
+      </ion-card-header>
+      <ng-container *ngFor="let x of post.joiner">
+        <div class="item">
+          <div class="name">{{ x.name }}</div>
+          <div class="sex">{{ x.sex }}</div>
+          <div class="hobby">{{ x.hobby }}</div>
+        </div>
+      </ng-container>
+    </ion-card>
+
+  </div>
 </ion-content>

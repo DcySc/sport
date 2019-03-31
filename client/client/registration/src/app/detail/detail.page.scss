@@ -1,0 +1,46 @@
+.container {
+    background-color: white;
+    padding: 0 1rem;
+
+    .item {
+        position: relative;
+        height: 4rem;
+        line-height: 4rem;
+        font-size: 1.4rem;
+        text-indent: 0;
+        border-bottom: 1px solid rgb(239, 239, 239);
+
+        .title {
+            float: left;
+            display: inline-block;
+            width: 6rem;
+            margin-right: 1rem;
+        }
+
+        .item-content {
+            float: right;
+            padding-right: .8rem;
+            height: 100%;
+            text-align: right;
+        }
+    }
+
+    ion-card {
+        border-bottom: 1px solid rgba(85, 85, 85, 0.5);
+
+        .item {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 4rem;
+
+            .name, .sex, .hobby {
+                flex: 1;
+                height: 100%;
+                text-align: center;
+                line-height: 4rem;
+            }
+        }
+    }
+}
