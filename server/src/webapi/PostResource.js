@@ -24,6 +24,10 @@ class PostResource {
       url: '/api/posts',
       method: 'get',
       option: 'getAllPosts'
+    }, {
+      url: '/api/post',
+      method: 'get',
+      option: 'getPostById' //根据postId 获取post
     }];
   }
 
@@ -33,7 +37,7 @@ class PostResource {
    * @param {*} ctx 
    */
   async getAllPosts(ctx){
-    let query = ctx.request.query;
+    //let query = ctx.request.query;
     try {
       let baseDao = ctx.baseDao;
       let dbo = await ctx.mongodbUtil.dbo();
@@ -47,6 +51,37 @@ class PostResource {
     }
   }
 
+  /**
+   * 根据postid得到post的详细信息
+   * @param {} ctx 
+   */
+  async getPostById(ctx){
+    let query = ctx.request.query;
+    try {
+      let baseDao = ctx.baseDao;
+      let dbo = await ctx.mongodbUtil.dbo();
+      let res = await baseDao.find(dbo, 'post', {id: query.id});
+      if(res.length>0){
+        let post = res[0];
+        for(let index = 0;index<post.joinList.length;index++){
+          let user = await baseDao.find(dbo, 'user', {
+            id: post.joinList[index]
+          });
+          post.joinList[index] = user;
+        }
+        ctx.body = post;
+      }else{
+        ctx = {};
+      }
+  
+    } catch (err) {
+      ctx.status = 405;
+      console.log(err)
+      ctx.body = {
+        message: 'some err'
+      }
+    }
+  }
 
   // 新增帖子 
   async addPost(ctx) {
@@ -75,13 +110,26 @@ class PostResource {
       let baseDao = ctx.baseDao;
       let dbo = await ctx.mongodbUtil.dbo();
       let res = await baseDao.find(dbo, 'post', {
-        jionList: {
+        joinList: {
           $all: [query.userId]
         }
       });
+
+      console.log(res)
+      for(let postIndex=0;postIndex<res.length;postIndex++){
+        for(let index =0; index<res[postIndex].joinList.length;index++){
+          let user = await baseDao.find(dbo, 'user', {
+            id: res[postIndex].joinList[index]
+          });
+          res[postIndex].joinList[index] = user;
+        }
+      }
+
+
       ctx.body = res;
     } catch (err) {
       ctx.status = 405;
+      console.log(err)
       ctx.body = {
         message: 'some err'
       }
@@ -106,12 +154,13 @@ class PostResource {
     }
   }
 
-  // 更新帖子
+  // 更新帖子 更新帖子时，joinList一定要为user的id的list，不要传为user实体的List
   async updatePost(ctx) {
     const post = new Post(ctx.request.body);
     try {
       let dbo = await ctx.mongodbUtil.dbo();
       let baseDao = ctx.baseDao;
+
       ctx.body = await baseDao.update(dbo, 'post', {
         id: post.user
       }, {
