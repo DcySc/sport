@@ -39,8 +39,6 @@ export class AddPostPage implements OnInit {
     this.post.title = this.post.address;
 
     this.dataService.addPost(this.post).subscribe(val => this.router.navigate(['/tabs']));
-
-    
   }
 
 }

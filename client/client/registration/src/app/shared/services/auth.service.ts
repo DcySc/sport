@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, Subject } from 'rxjs';
 import { tap } from 'rxjs/operators';
-const BASEURL = 'http://localhost:8087';
+const BASEURL = 'http://ws.otravel.tk:9100';
 
 @Injectable()
 export class AuthService {
