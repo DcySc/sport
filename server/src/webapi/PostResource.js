@@ -195,7 +195,7 @@ class PostResource {
       let baseDao = ctx.baseDao;
 
       ctx.body = await baseDao.update(dbo, 'post', {
-        id: post.user
+        id: post.id
       }, {
         $set: post
       });
