@@ -145,6 +145,15 @@ class PostResource {
       let res = await baseDao.find(dbo, 'post', {
         user: query.userId
       });
+
+      for(let postIndex=0;postIndex<res.length;postIndex++){
+        for(let index =0; index<res[postIndex].joinList.length;index++){
+          let user = await baseDao.find(dbo, 'user', {
+            id: res[postIndex].joinList[index]
+          });
+          res[postIndex].joinList[index] = user;
+        }
+      }
       ctx.body = res;
     } catch (err) {
       ctx.status = 405;
