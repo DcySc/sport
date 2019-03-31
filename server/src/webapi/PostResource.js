@@ -36,14 +36,14 @@ class PostResource {
    * 获取所有posts
    * @param {*} ctx 
    */
-  async getAllPosts(ctx){
+  async getAllPosts(ctx) {
     //let query = ctx.request.query;
     try {
       let baseDao = ctx.baseDao;
       let dbo = await ctx.mongodbUtil.dbo();
       let res = await baseDao.find(dbo, 'post', {});
 
-      for(let index = 0;index<res.length;index++){
+      for (let index = 0; index < res.length; index++) {
         let user = await baseDao.find(dbo, 'user', {
           id: res[index].user
         });
@@ -63,25 +63,32 @@ class PostResource {
    * 根据postid得到post的详细信息
    * @param {} ctx 
    */
-  async getPostById(ctx){
+  async getPostById(ctx) {
     let query = ctx.request.query;
     try {
       let baseDao = ctx.baseDao;
       let dbo = await ctx.mongodbUtil.dbo();
-      let res = await baseDao.find(dbo, 'post', {id: query.id});
-      if(res.length>0){
+      let res = await baseDao.find(dbo, 'post', {
+        id: query.id
+      });
+      if (res.length > 0) {
         let post = res[0];
-        for(let index = 0;index<post.joinList.length;index++){
+        for (let index = 0; index < post.joinList.length; index++) {
           let user = await baseDao.find(dbo, 'user', {
             id: post.joinList[index]
           });
           post.joinList[index] = user;
         }
+
+        let user = await baseDao.find(dbo, 'user', {
+          id: post.user
+        });
+        post.user = user;
         ctx.body = post;
-      }else{
+      } else {
         ctx = {};
       }
-  
+
     } catch (err) {
       ctx.status = 405;
       console.log(err)
@@ -124,13 +131,18 @@ class PostResource {
       });
 
       console.log(res)
-      for(let postIndex=0;postIndex<res.length;postIndex++){
-        for(let index =0; index<res[postIndex].joinList.length;index++){
+      for (let postIndex = 0; postIndex < res.length; postIndex++) {
+        for (let index = 0; index < res[postIndex].joinList.length; index++) {
           let user = await baseDao.find(dbo, 'user', {
             id: res[postIndex].joinList[index]
           });
           res[postIndex].joinList[index] = user;
         }
+        let user = await baseDao.find(dbo, 'user', {
+          id: res[postIndex].user
+        });
+        res[postIndex].user = user;
+
       }
 
 
@@ -154,13 +166,17 @@ class PostResource {
         user: query.userId
       });
 
-      for(let postIndex=0;postIndex<res.length;postIndex++){
-        for(let index =0; index<res[postIndex].joinList.length;index++){
+      for (let postIndex = 0; postIndex < res.length; postIndex++) {
+        for (let index = 0; index < res[postIndex].joinList.length; index++) {
           let user = await baseDao.find(dbo, 'user', {
             id: res[postIndex].joinList[index]
           });
           res[postIndex].joinList[index] = user;
         }
+        let user = await baseDao.find(dbo, 'user', {
+          id: res[postIndex].user
+        });
+        res[postIndex].user = user;
       }
       ctx.body = res;
     } catch (err) {
