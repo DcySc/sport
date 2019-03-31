@@ -83,7 +83,7 @@ class PostResource {
         let user = await baseDao.find(dbo, 'user', {
           id: post.user
         });
-        post.user = user;
+        user[0]&&(post.user = user[0]);
         ctx.body = post;
       } else {
         ctx = {};
