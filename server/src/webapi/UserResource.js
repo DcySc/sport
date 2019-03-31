@@ -113,8 +113,8 @@ class UserResource {
   /**
    * 更新用户
    */
-  async updateUser(){
-    const user = ctx.request.body;
+  async updateUser(ctx){
+    const user = new User(ctx.request.body);
     try{
       let dbo = await ctx.mongodbUtil.dbo();
       let baseDao = ctx.baseDao;
@@ -125,10 +125,8 @@ class UserResource {
       });
 
     }catch(err){
-      ctx.body = {
-        code: 405,
-        message: 'some err'
-      }
+      console.log(err)
+      ctx.status = 405;
     }
   }
 
