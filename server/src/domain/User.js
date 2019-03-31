@@ -8,7 +8,8 @@ module.exports = class User {
     major,
     department,
     img,
-    password
+    password,
+    hobby
   }) {
     this.id = id;
     this.sex = sex;
@@ -19,5 +20,6 @@ module.exports = class User {
     this.major = major; // 科室
     this.img = img;
     this.password = password;
+    this.hobby = hobby;
   }
 }

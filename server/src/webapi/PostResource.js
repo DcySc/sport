@@ -42,6 +42,14 @@ class PostResource {
       let baseDao = ctx.baseDao;
       let dbo = await ctx.mongodbUtil.dbo();
       let res = await baseDao.find(dbo, 'post', {});
+
+      for(let index = 0;index<res.length;index++){
+        let user = await baseDao.find(dbo, 'user', {
+          id: res[index].user
+        });
+        res[index].user = user;
+      }
+
       ctx.body = res;
     } catch (err) {
       ctx.status = 405;
