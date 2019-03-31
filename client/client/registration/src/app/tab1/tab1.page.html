@@ -27,24 +27,24 @@
 
 <ion-content color="light">
   <ion-card>
-    <ng-container *ngFor="let i of messageList">
+    <ng-container *ngFor="let i of curList">
       <div class="item">
         <div class="img">
-          <ion-img src="i.img"></ion-img>
+          <ion-img src="{{i.user[0]?.img}}"></ion-img>
         </div>
         <div class="body">
           <div class="content">
-            {{ i.content }}
+            {{ i.details }}
           </div>
           <div class="sign">
-            <div class="sign-item">{{ i.school }}</div>
-            <div class="sign-item">{{ i.sex }}</div>
-            <div class="sign-item">{{ i.hobby }}</div>
+            <div class="sign-item">{{ i.address }}</div>
+            <div class="sign-item">{{ i.user[0]?.name }}</div>
+            <div class="sign-item">{{ i.user[0]?.hobby }}</div>
           </div>
         </div>
         <div class="select">
-          <ion-icon *ngIf="i.isShow" name="checkbox-outline" (click)="clickIcon($event, i)" color="primary"></ion-icon>
-          <ion-icon *ngIf="!i.isShow" name="checkbox" (click)="clickIcon($event, i)" color="primary"></ion-icon>
+          <ion-icon *ngIf="!i.joinList.includes(this.user.id) && this.user.id !== i.user[0].id"  name="checkbox-outline" color="primary" (click)="clickCheckBox(i.user[0].id, i)"></ion-icon>
+          <ion-icon *ngIf="i.joinList.includes(this.user.id) || this.user.id === i.user[0].id" name="checkbox" color="primary" (click)="clickCheckBox(i.user[0].id, i)"></ion-icon>
         </div>
       </div>
     </ng-container>

@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, Subject } from 'rxjs';
 import { tap } from 'rxjs/operators';
-const BASEURL = 'http://localhost:8088';
+const BASEURL = 'http://localhost:8087';
 
 @Injectable()
 export class AuthService {
@@ -19,17 +19,18 @@ export class AuthService {
   getToken(userVM: any): Observable<any> {
 
     return this.http.post(`${BASEURL}/api/login`, userVM).pipe(
-      tap(it => this.handleResult(it))
+      tap(it => this.handleResult(it, userVM))
     );
 
   }
 
-  handleResult(it: any) {
+  handleResult(it: any, vm) {
     this.token.next(it);
     console.log(it);
     localStorage.setItem('token', it.token);
     const date = (new Date()).getTime();
     localStorage.setItem('loginTime', date + '');
+    localStorage.setItem('vm', JSON.stringify(vm));
   }
 
   getUser(): Observable<any> {
@@ -37,7 +38,11 @@ export class AuthService {
   }
 
   getUserById(id: number): Observable<any> {
-    return this.http.get(`${BASEURL}/api/user/${id}`);
+    return this.http.get(`${BASEURL}/api/user?id=${id}`);
+  }
+
+  updateUser(user: Object): Observable<any> {
+    return this.http.post(`${BASEURL}/api/update_user`, user);
   }
 
   clearToken() {

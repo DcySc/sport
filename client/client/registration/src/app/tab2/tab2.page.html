@@ -3,10 +3,13 @@
     <ion-title>
       列表
     </ion-title>
+    <div class="icon"> 
+      <ion-icon name="add-circle-outline" (click)="clickIcon($event)"></ion-icon>
+    </div>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content color="light">
 
   <div class="tab-header">
     <div [ngClass]="{'select': selectTab === 1}" (click)="changeTab(1)">
@@ -21,42 +24,44 @@
 
   <ion-card *ngIf="selectTab === 1">
       <ng-container *ngFor="let i of messageList">
-        <div class="item">
+        <div class="item" (click)="clickItem(i.id)">
           <div class="img">
-            <ion-img src="i.img"></ion-img>
+            <ion-img src="{{i.user[0]?.img}}"></ion-img>
           </div>
           <div class="body">
             <div class="content">
-              {{ i.content }}
+              {{ i.details }}
             </div>
             <div class="sign">
-              <div class="sign-item">{{ i.school }}</div>
-              <div class="sign-item">{{ i.sex }}</div>
-              <div class="sign-item">{{ i.hobby }}</div>
+              <div class="sign-item">{{ i.user[0]?.school }}</div>
+              <div class="sign-item">{{ i.user[0]?.sex }}</div>
+              <div class="sign-item">{{ i.user[0]?.hobby }}</div>
             </div>
           </div>
         </div>
       </ng-container>
+      <ion-item *ngIf="messageList.length === 0">你目前没有发布任何活动</ion-item>
   </ion-card>
 
   <ion-card *ngIf="selectTab === 2">
-      <ng-container *ngFor="let i of messageList">
-        <div class="item">
+      <ng-container *ngFor="let i of joinList">
+        <div class="item" (click)="clickItem(i.id)">
           <div class="img">
-            <ion-img src="i.img"></ion-img>
+            <ion-img src="{{i.user[0]?.img}}"></ion-img>
           </div>
           <div class="body">
             <div class="content">
-              {{ i.content }}
+              {{ i.details }}
             </div>
             <div class="sign">
-              <div class="sign-item">{{ i.school }}</div>
-              <div class="sign-item">{{ i.sex }}</div>
-              <div class="sign-item">{{ i.hobby }}</div>
+              <div class="sign-item">{{ i.user[0]?.school }}</div>
+              <div class="sign-item">{{ i.user[0]?.sex }}</div>
+              <div class="sign-item">{{ i.user[0]?.hobby }}</div>
             </div>
           </div>
         </div>
       </ng-container>
+      <ion-item *ngIf="joinList.length === 0">你目前没有参与任何活动</ion-item>
   </ion-card>
 
 </ion-content>

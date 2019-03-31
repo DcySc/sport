@@ -24,6 +24,11 @@
       <ion-input class="input" placeholder="性别" [(ngModel)]="person.sex" *ngIf="edit"></ion-input>
     </div>
     <div class="item">
+      <div class="title">出生日期</div>
+      <div class="item-content" *ngIf="!edit">{{ person.bornDate }}</div>
+      <ion-input class="input" placeholder="出生日期" [(ngModel)]="person.bornDate" *ngIf="edit"></ion-input>
+    </div>
+    <div class="item">
       <div class="title">学号</div>
       <div class="item-content" *ngIf="!edit">{{ person.id }}</div>
       <ion-input class="input" placeholder="学号" [(ngModel)]="person.id" *ngIf="edit"></ion-input>
@@ -42,6 +47,11 @@
       <div class="title">爱好</div>
       <div class="item-content" *ngIf="!edit">{{ person.hobby }}</div>
       <ion-input class="input" placeholder="爱好" [(ngModel)]="person.hobby" *ngIf="edit"></ion-input>
+    </div>
+    <div class="item">
+      <div class="title">院系</div>
+      <div class="item-content" *ngIf="!edit">{{ person.department }}</div>
+      <ion-input class="input" placeholder="院系" [(ngModel)]="person.department" *ngIf="edit"></ion-input>
     </div>
  </div>
 </ion-content>

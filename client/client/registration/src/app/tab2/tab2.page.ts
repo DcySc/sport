@@ -1,4 +1,6 @@
+import { DataService } from './../shared/services/data.service';
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-tab2',
@@ -7,34 +9,35 @@ import { Component } from '@angular/core';
 })
 export class Tab2Page {
   selectTab = 1;
-  messageList = [{
-    img: '1',
-    name: '2',
-    sex: '男',
-    id: 0,
-    school: '上师大',
-    major: '计算机',
-    hobby: '篮球',
-    content: '撒圣诞节暗红色的还是的哈卡仕号是看得见哈健康对话框就啊哈收到货卡机何时可掇家会',
-    isShow: true
-  }, {
-    img: '1',
-    name: '2',
-    sex: '女',
-    id: 0,
-    school: '交大',
-    major: '心理',
-    hobby: '足球',
-    content: '撒圣诞节暗红色的还是的哈卡仕是看得见哈健康哈收到货卡机何时可掇家会',
-    isShow: true
-  }];
+  messageList = [];
+  joinList = [];
 
-  constructor() {
+  constructor(
+    private router: Router,
+    private dataService: DataService
+  ) {
 
+  }
+
+  clickItem(id) {
+    this.router.navigate(['/detail', id]);
   }
 
 
   changeTab(num) {
     this.selectTab = num;
+  }
+
+  clickIcon(e) {
+    this.router.navigate(['/addpost']);
+  }
+
+  ionViewWillEnter() {
+    const user = JSON.parse(localStorage.getItem('vm'));
+    this.dataService.getUserPosts(user.id).subscribe(it => {
+      console.log(it);
+      this.messageList = it;
+    });
+    this.dataService.getJoinPosts(user.id).subscribe(it => this.joinList = it);
   }
 }

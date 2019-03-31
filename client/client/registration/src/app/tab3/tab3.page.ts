@@ -1,3 +1,5 @@
+import { AuthService } from './../shared/services/auth.service';
+import { DataService } from './../shared/services/data.service';
 import { Component } from '@angular/core';
 
 @Component({
@@ -8,20 +10,24 @@ import { Component } from '@angular/core';
 export class Tab3Page {
 
   person = {
-    img: '1',
-    name: '2',
-    sex: '3',
-    id: 0,
-    school: '4',
-    major: '5',
-    hobby: '6'
+    bornDate: '',
+    department: '',
+    hobby: '',
+    id: '',
+    img: '',
+    major: '',
+    name: '',
+    school: '',
+    sex: ''
   };
 
   edit = false;
 
   icon = 'create';
 
-  constructor() {}
+  constructor(
+    private authService: AuthService
+  ) {}
 
   clickIcon(e) {
     console.log(1);
@@ -31,6 +37,15 @@ export class Tab3Page {
       this.icon = 'save';
     } else {
       this.icon = 'create';
+      this.authService.updateUser(this.person).subscribe();
     }
+  }
+
+  ionViewWillEnter() {
+    const user = JSON.parse(localStorage.getItem('vm'));
+    this.authService.getUserById(user.id).subscribe(it => {
+      this.person = it[0];
+      console.log(it);
+    });
   }
 }

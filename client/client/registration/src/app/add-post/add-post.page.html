@@ -1,0 +1,28 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>添加帖子</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item>
+      <ion-label >时间</ion-label>
+      <ion-datetime display-format="M 月 DD 日 HH:mm" placeholder="选择时间" [(ngModel)]="post.beginDate"></ion-datetime>
+    </ion-item>
+    <ion-item>
+      <ion-label>地点</ion-label>
+      <ion-input placeholder="请输入约定地点" [(ngModel)]="post.address"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">具体信息</ion-label>
+      <ion-textarea placeholder="请输入具体信息" [(ngModel)]="post.details"></ion-textarea>
+    </ion-item>
+  </ion-list>
+</ion-content>
+
+<ion-footer (click)="clickFooter()">
+  <ion-toolbar color="primary">
+    <ion-title>确定发布</ion-title>
+  </ion-toolbar>
+</ion-footer>

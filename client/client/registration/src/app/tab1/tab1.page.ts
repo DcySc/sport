@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { DataService } from './../shared/services/data.service';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-tab1',
@@ -6,6 +8,8 @@ import { Component } from '@angular/core';
   styleUrls: ['tab1.page.scss']
 })
 export class Tab1Page {
+
+  user;
 
   placeSelect: any = {
     header: '地区'
@@ -22,33 +26,40 @@ export class Tab1Page {
   place: '';
   school: '';
 
-  messageList = [{
-    img: '1',
-    name: '2',
-    sex: '男',
-    id: 0,
-    school: '上师大',
-    major: '计算机',
-    hobby: '篮球',
-    content: '撒圣诞节暗红色的还是的哈卡仕号是看得见哈健康对话框就啊哈收到货卡机何时可掇家会',
-    isShow: true
-  }, {
-    img: '1',
-    name: '2',
-    sex: '女',
-    id: 0,
-    school: '交大',
-    major: '心理',
-    hobby: '足球',
-    content: '撒圣诞节暗红色的还是的哈卡仕是看得见哈健康哈收到货卡机何时可掇家会',
-    isShow: true
-  }];
+  curList = [];
 
-  constructor() {
+  messageList = [];
+
+  constructor(
+    private dataService: DataService,
+    private router: Router
+  ) {
 
   }
 
   clickIcon(e, item) {
     item.isShow = !item.isShow;
+  }
+
+  clickCheckBox(id, post) {
+    if (this.user.id === id || post.joinList.includes(this.user.id)) {
+      this.router.navigate(['/detail', post.id]);
+    } else {
+      post.joinList.push(this.user.id);
+      post.user = post.user[0].id;
+
+      this.dataService.updatePost(post).subscribe(it => {
+        this.router.navigate(['/detail', post.id]);
+      });
+    }
+  }
+
+  ionViewWillEnter() {
+    this.user = JSON.parse(localStorage.getItem('vm'));
+    this.dataService.getPosts().subscribe(it => {
+      this.messageList = it;
+      this.curList = it;
+      console.log(it);
+    });
   }
 }

@@ -25,22 +25,25 @@
         }
     }
 
-    ion-card {
-        border-bottom: 1px solid rgba(85, 85, 85, 0.5);
+    
+}
 
-        .item {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            width: 100%;
-            height: 4rem;
+ion-card {
+    border-bottom: 1px solid rgba(85, 85, 85, 0.5);
 
-            .name, .sex, .hobby {
-                flex: 1;
-                height: 100%;
-                text-align: center;
-                line-height: 4rem;
-            }
+    .item {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 4rem;
+        background: white;
+
+        .name, .sex, .hobby {
+            flex: 1;
+            height: 100%;
+            text-align: center;
+            line-height: 4rem;
         }
     }
 }
